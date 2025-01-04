@@ -1,6 +1,9 @@
 use leptos::prelude::ElementChild;
 use leptos::*;
-use leptos::context::use_context;
+use components::{Route, Router, Routes};
+use leptos::{prelude::*, task::spawn_local};
+use leptos_meta::*;
+use leptos_router::*;
 
 #[component]
 pub fn NotFound() -> impl IntoView {
