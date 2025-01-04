@@ -5,7 +5,8 @@ use leptos_router::*;
 
 use leptos::prelude::ElementChild;
 
-use crate::components::{home_page::HomePage, not_found::NotFound};
+use crate::library::{home_page::HomePage, not_found::NotFound};
+use crate::library::save_count;
 
 #[cfg(feature = "ssr")]
 pub fn shell(options: LeptosOptions) -> impl IntoView {
