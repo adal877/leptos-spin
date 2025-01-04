@@ -1,23 +1,13 @@
-use leptos::{
-    config::get_configuration,
-    task::Executor as LeptosExecutor
-};
-use leptos_wasi::{
-    handler::HandlerError,
-    prelude::{IncomingRequest, ResponseOutparam, WasiExecutor},
-};
-use wasi::exports::http::incoming_handler::Guest;
-use wasi::http::proxy::export;
+use crate::library::save_count;
+use crate::library::home_page::SaveCount;
 
-use crate::app::{shell, App};
-use crate::components::home_page::save_count as SaveCount;
+// Adicione este uso para pegar o tipo gerado pela macro `#[server]`
+use leptos::ServerFn;
 
 struct LeptosServer;
 
 impl Guest for LeptosServer {
     fn handle(request: IncomingRequest, response_out: ResponseOutparam) {
-        // Initiate a single-threaded [`Future`] Executor so we can run the
-        // rendering system and take advantage of bodies streaming.
         let executor = WasiExecutor::new(leptos_wasi::executor::Mode::Stalled);
         if let Err(e) = LeptosExecutor::init_local_custom_executor(executor.clone()) {
             eprintln!("Got error while initializing leptos_wasi executor: {e:?}");
@@ -41,12 +31,9 @@ async fn handle_request(
     let leptos_options = conf.leptos_options;
 
     Handler::build(request, response_out)?
-        // NOTE: Add all server functions here to ensure functionality works as expected!
-        .with_server_fn::<SaveCount>()
-        // Fetch all available routes from your App.
-        .generate_routes(App)
-        // Actually process the request and write the response.
-        .handle_with_context(move || shell(leptos_options.clone()), || {})
+        .with_server_fn::<save_count>() // O tipo é gerado pela macro #[server]
+        .generate_routes(crate::app::App)
+        .handle_with_context(move || crate::app::shell(leptos_options.clone()), || {})
         .await?;
     Ok(())
 }
