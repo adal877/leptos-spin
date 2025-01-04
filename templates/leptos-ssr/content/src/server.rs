@@ -9,7 +9,8 @@ use leptos_wasi::{
 use wasi::exports::http::incoming_handler::Guest;
 use wasi::http::proxy::export;
 
-use crate::app::{shell, App, SaveCount};
+use crate::app::{shell, App};
+use crate::components::home_page::save_count as SaveCount;
 
 struct LeptosServer;
 

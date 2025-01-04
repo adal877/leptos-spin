@@ -1,4 +1,5 @@
 mod app;
+pub mod components;
 
 #[cfg(feature = "ssr")]
 mod server;
