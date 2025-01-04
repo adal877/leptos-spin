@@ -3,6 +3,7 @@ use crate::library::home_page::SaveCount;
 
 // Adicione este uso para pegar o tipo gerado pela macro `#[server]`
 use leptos::ServerFn;
+use leptos::prelude::ServerFnError;
 
 struct LeptosServer;
 

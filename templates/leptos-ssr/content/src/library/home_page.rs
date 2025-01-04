@@ -2,8 +2,6 @@ use leptos::prelude::ElementChild;
 use leptos::*;
 use leptos::{prelude::*, task::spawn_local};
 
-use crate::library::save_count;
-
 #[component]
 pub fn HomePage() -> impl IntoView {
     // Creates a reactive value to update the button
